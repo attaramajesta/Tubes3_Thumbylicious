@@ -8,19 +8,19 @@
     "net8.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\attar\\.nuget\\packages\\": {}
+    "C:\\Users\\ASUS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\WpfApp\\WpfApp.csproj",
+      "projectUniqueName": "C:\\Users\\ASUS\\Documents\\Stima\\Tubes3\\Tubes3_Thumbylicious\\src\\WpfApp\\WpfApp.csproj",
       "projectName": "WpfApp",
-      "projectPath": "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\WpfApp\\WpfApp.csproj",
-      "packagesPath": "C:\\Users\\attar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\WpfApp\\obj\\",
+      "projectPath": "C:\\Users\\ASUS\\Documents\\Stima\\Tubes3\\Tubes3_Thumbylicious\\src\\WpfApp\\WpfApp.csproj",
+      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ASUS\\Documents\\Stima\\Tubes3\\Tubes3_Thumbylicious\\src\\WpfApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\attar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
