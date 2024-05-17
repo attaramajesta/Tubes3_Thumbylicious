@@ -8,7 +8,7 @@ namespace PatternMatch
 {
     public class DatabaseManager
     {
-        private static string connectionString = "Server=localhost; Database=tubes3; User ID=root; Password=bbee2e7;";
+        private static string connectionString = "Server=localhost; Port=1234; Database=tubes3; User ID=root; Password=bbee2e7;";
 
         public static void Insert(string ascii, string name)
         {
