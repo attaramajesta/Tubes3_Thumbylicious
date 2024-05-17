@@ -8,40 +8,35 @@ namespace PatternMatching
 {
     public class Parser
     {
-        public string ConvertImageToAscii(Image image)
+        public string ConvertImageToAscii(Image image, int Width, int Height)
         {
-            #pragma warning disable CA1416 // Suppress platform-specific warnings
-            // Convert image to byte array
-            byte[] byteArray;
-            using (MemoryStream stream = new MemoryStream())
+            using (Bitmap resizedImage = new Bitmap(image, Width, Height))
             {
-                image.Save(stream, ImageFormat.Jpeg);
-                byteArray = stream.ToArray();
-            }
-            #pragma warning restore CA1416 // Restore warnings
-
-            // Convert byte array to bit string
-            StringBuilder bitString = new StringBuilder();
-            foreach (byte b in byteArray)
-            {
-                bitString.Append(Convert.ToString(b, 2).PadLeft(8, '0'));
-            }
-
-            // Convert bit string to ASCII string
-            StringBuilder asciiString = new StringBuilder();
-            string bitstring = bitString.ToString();
-            for (int i = 0; i < bitstring.Length; i += 8)
-            {
-                if (i + 8 <= bitstring.Length)
+                using (MemoryStream stream = new MemoryStream())
                 {
-                    string byteString = bitstring.Substring(i, 8);
-                    int asciiValue = Convert.ToInt32(byteString, 2);
-                    char asciiChar = (char)asciiValue;
-                    asciiString.Append(asciiChar);
+                    // Menyimpan gambar yang telah diubah ukurannya sebagai JPEG
+                    resizedImage.Save(stream, ImageFormat.Jpeg);
+                    byte[] byteArray = stream.ToArray();
+
+                    // Mengonversi array byte menjadi string ASCII
+                    StringBuilder asciiString = new StringBuilder();
+                    foreach (byte b in byteArray)
+                    {
+                        string byteString = Convert.ToString(b, 2).PadLeft(8, '0');
+                        for (int i = 0; i < byteString.Length; i += 8)
+                        {
+                            if (i + 8 <= byteString.Length)
+                            {
+                                string bits = byteString.Substring(i, 8);
+                                int asciiValue = Convert.ToInt32(bits, 2);
+                                char asciiChar = (char)asciiValue;
+                                asciiString.Append(asciiChar);
+                            }
+                        }
+                    }
+                    return asciiString.ToString();
                 }
             }
-
-            return asciiString.ToString();
         }
     }
 }

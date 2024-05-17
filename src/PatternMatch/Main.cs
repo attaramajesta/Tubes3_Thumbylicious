@@ -7,17 +7,24 @@ public class PatternMatcher
 {
     public static void Main(string[] args)
     {
+
+        Console.WriteLine("Enter the total number of pixels (30, 60, 90, 120, 240, 480, 10000):");
+        int totalPixels = int.Parse(Console.ReadLine());
+
+        (int Width, int Height) = GetDimensionsForPixels(totalPixels);
+
         var parser = new PatternMatching.Parser();
 
         Image input = Image.FromFile("database/fingerprint1.jpg");
-        string ascii = parser.ConvertImageToAscii(input);
+        string ascii = parser.ConvertImageToAscii(input, Width, Height);
+        Console.WriteLine("BATAS" + ascii + "BATAS");
 
         // Belum ada MySQL jadi hardcode dulu
         Image img2 = Image.FromFile("database/fingerprint2.jpg");
-        string ascii2 = parser.ConvertImageToAscii(img2);
+        string ascii2 = parser.ConvertImageToAscii(img2, Width, Height);
 
         Image img3 = Image.FromFile("database/fingerprint3.jpg");
-        string ascii3 = parser.ConvertImageToAscii(img3);
+        string ascii3 = parser.ConvertImageToAscii(img3, Width, Height);
 
         // Load ke dictionary (method loader harus ditambahin nanti)
         Dictionary<string, string> fingerprintsDatabase = new Dictionary<string, string>
@@ -59,5 +66,19 @@ public class PatternMatcher
         {
             Console.WriteLine($"{similarFingerprints[i].Key}: {similarFingerprints[i].Value * 100}% similarity");
         }
+    }
+    private static (int, int) GetDimensionsForPixels(int totalPixels)
+    {
+        return totalPixels switch
+        {
+            30 => (5, 6),
+            60 => (6, 10),
+            90 => (9, 10),
+            120 => (10, 12),
+            240 => (15, 16),
+            480 => (20, 24),
+            10000 => (100, 100),
+            _ => throw new ArgumentException("Invalid number of pixels. Please choose from the given options.")
+        };
     }
 }
