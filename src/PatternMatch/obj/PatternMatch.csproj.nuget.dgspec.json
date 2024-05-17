@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jonat\\OneDrive\\Documents\\KodingSantuy\\STIMA\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj": {}
+    "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jonat\\OneDrive\\Documents\\KodingSantuy\\STIMA\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj": {
+    "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonat\\OneDrive\\Documents\\KodingSantuy\\STIMA\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj",
+        "projectUniqueName": "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj",
         "projectName": "PatternMatch",
-        "projectPath": "C:\\Users\\jonat\\OneDrive\\Documents\\KodingSantuy\\STIMA\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj",
-        "packagesPath": "C:\\Users\\jonat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonat\\OneDrive\\Documents\\KodingSantuy\\STIMA\\Tubes3_Thumbylicious\\src\\PatternMatch\\obj\\",
+        "projectPath": "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\PatternMatch\\PatternMatch.csproj",
+        "packagesPath": "C:\\Users\\attar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\attar\\OneDrive\\Documents\\GitHub\\Tubes3_Thumbylicious\\src\\PatternMatch\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jonat\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\attar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
