@@ -24,24 +24,50 @@ public class PatternMatcher
 
         Dictionary<string, string> fingerprintsDatabase = DatabaseManager.FetchFingerprintsFromDatabase(Width, Height);
 
-        // Cari exact match dulu pake KMP dan BM
-        Console.WriteLine("\nKMP and BM:");
-        bool exist = false;
-        foreach (var fingerprint in fingerprintsDatabase)
+        Console.WriteLine("Enter the Algorithm you wanted to use (KMP or BM)");
+        string algorithm = Console.ReadLine();
+
+
+        while (algorithm != "KMP" && algorithm != "BM")
         {
-            bool isMatchKMP = KMP.KMPSearch(ascii, fingerprint.Value);
-            bool isMatchBM = BM.search(ascii.ToCharArray(), fingerprint.Value.ToCharArray());
-            if (isMatchKMP || isMatchBM)
+            Console.WriteLine("Enter the Algorithm you wanted to use (KMP or BM)");
+            algorithm = Console.ReadLine();
+
+        }
+
+        bool exist = false;
+        if(algorithm == "BM")
+        {
+            exist = false;
+            foreach (var fingerprint in fingerprintsDatabase)
             {
-                Console.WriteLine($"Exact match found with {fingerprint.Key} with similarity 100%.");
-                exist = true;
-                break;
+                bool isMatchBM = BM.search(ascii.ToCharArray(), fingerprint.Value.ToCharArray());
+                if (isMatchBM)
+                {
+                    Console.WriteLine($"Exact match found with {fingerprint.Key} with similarity 100%.");
+                    exist = true;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            exist = false;
+            foreach (var fingerprint in fingerprintsDatabase)
+            {
+                bool isMatchKMP = KMP.KMPSearch(ascii, fingerprint.Value);
+                if (isMatchKMP)
+                {
+                    Console.WriteLine($"Exact match found with {fingerprint.Key} with similarity 100%.");
+                    exist = true;
+                    break;
+                }
             }
         }
 
         if (!exist)
         {
-            Console.WriteLine("No match fingerprint found using KMP and BM algorithm");
+            Console.WriteLine("No match fingerprint found");
         }
 
         // Cari similar match (bentuknya list maks 5 orang) pake Levenshtein Distance (tuning: 80%)
