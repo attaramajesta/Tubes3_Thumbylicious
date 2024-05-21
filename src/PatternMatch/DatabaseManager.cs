@@ -36,7 +36,6 @@ namespace PatternMatch
                             Image image = Image.FromFile(berkas_citra);
                             string ascii = parser.ConvertImageToAscii(image, width, height);
 
-                            Console.WriteLine($"Fingerprint data found: {nama}");
                             fingerprintsDatabase.Add(nama, ascii);
                         }
                     }
@@ -47,7 +46,7 @@ namespace PatternMatch
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($"An error occurred FetchFingerprintsFromDatabase: {ex.Message}");
                 }
 
                 return fingerprintsDatabase;
@@ -85,7 +84,7 @@ namespace PatternMatch
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($"An error occurred Insert: {ex.Message}");
                 }
             }
         }
@@ -140,7 +139,7 @@ namespace PatternMatch
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($"An error occurred ClearDatabase: {ex.Message}");
                 }
             }
         }
@@ -278,7 +277,7 @@ namespace PatternMatch
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($"An error occurred generateBiodata: {ex.Message}");
                 }
             }
         }
@@ -446,7 +445,7 @@ namespace PatternMatch
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error: " + ex.ToString());
+                    Console.WriteLine("Fetch Error: " + ex.ToString());
                 }
             }
         }
@@ -481,7 +480,7 @@ namespace PatternMatch
             }
         }
 
-        public static void showBiodata(string nama)
+        public static DataTable showBiodata(string nama)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -497,26 +496,27 @@ namespace PatternMatch
                     biodataTable.Load(reader);
                     
                     // Menampilkan hasil biodata
-                    foreach (DataRow row in biodataTable.Rows)
-                    {
-                        Console.WriteLine($"NIK: {row["NIK"]}");
-                        Console.WriteLine($"Nama: {row["nama"]}");
-                        Console.WriteLine($"Tempat Lahir: {row["tempat_lahir"]}");
-                        Console.WriteLine($"Tanggal Lahir: {row["tanggal_lahir"]}");
-                        Console.WriteLine($"Jenis Kelamin: {row["jenis_kelamin"]}");
-                        Console.WriteLine($"Golongan Darah: {row["golongan_darah"]}");
-                        Console.WriteLine($"Alamat: {row["alamat"]}");
-                        Console.WriteLine($"Agama: {row["agama"]}");
-                        Console.WriteLine($"Status Perkawinan: {row["status_perkawinan"]}");
-                        Console.WriteLine($"Pekerjaan: {row["pekerjaan"]}");
-                        Console.WriteLine($"Kewarganegaraan: {row["kewarganegaraan"]}");
-                        Console.WriteLine();
-                    }
+                    // foreach (DataRow row in biodataTable.Rows)
+                    // {
+                    //     Console.WriteLine($"NIK: {row["NIK"]}");
+                    //     Console.WriteLine($"Nama: {row["nama"]}");
+                    //     Console.WriteLine($"Tempat Lahir: {row["tempat_lahir"]}");
+                    //     Console.WriteLine($"Tanggal Lahir: {row["tanggal_lahir"]}");
+                    //     Console.WriteLine($"Jenis Kelamin: {row["jenis_kelamin"]}");
+                    //     Console.WriteLine($"Golongan Darah: {row["golongan_darah"]}");
+                    //     Console.WriteLine($"Alamat: {row["alamat"]}");
+                    //     Console.WriteLine($"Agama: {row["agama"]}");
+                    //     Console.WriteLine($"Status Perkawinan: {row["status_perkawinan"]}");
+                    //     Console.WriteLine($"Pekerjaan: {row["pekerjaan"]}");
+                    //     Console.WriteLine($"Kewarganegaraan: {row["kewarganegaraan"]}");
+                    //     Console.WriteLine();
+                    // }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Error: " + ex.Message);
                 }
+                return biodataTable;
             }
         }
     }

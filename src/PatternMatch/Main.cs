@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Drawing;
 using PatternMatch;
@@ -8,7 +9,7 @@ public class PatternMatcher
 {
     public static void Main(string[] args)
     {
-        DatabaseManager.generateBiodata();
+        List<Tuple<DataTable, double>> results = new List<Tuple<DataTable, double>>();
 
         Console.WriteLine("Enter the total number of pixels (30, 60, 90, 120, 240, 480, 10000):");
         int totalPixels = int.Parse(Console.ReadLine());
@@ -36,10 +37,11 @@ public class PatternMatcher
                 exist = true;
                 break;
             }
-            else
-            {
-                Console.WriteLine($"No exact match found for {fingerprint.Key}.");
-            }
+        }
+
+        if (!exist)
+        {
+            Console.WriteLine("No match fingerprint found using KMP and BM algorithm");
         }
 
         // Cari similar match (bentuknya list maks 5 orang) pake Levenshtein Distance (tuning: 80%)
@@ -56,20 +58,38 @@ public class PatternMatcher
 
         for (int i = 0; i < Math.Min(5, similarFingerprints.Count); i++)
         {
-            Console.WriteLine($"{similarFingerprints[i].Key}: {similarFingerprints[i].Value * 100}% similarity");
-            DatabaseManager.showBiodata(similarFingerprints[i].Key);
+            DataTable biodata = DatabaseManager.showBiodata(similarFingerprints[i].Key);
+            double similarityValue = similarFingerprints[i].Value * 100;
+            results.Add(new Tuple<DataTable, double>(biodata, similarityValue));
         }
-        
+
+        foreach (var entry in results)
+        {
+            DataTable biodataTable = entry.Item1;
+            foreach (DataRow row in biodataTable.Rows)
+            {
+                Console.WriteLine($"NIK: {row["NIK"]}");
+                Console.WriteLine($"Nama: {row["nama"]}");
+                Console.WriteLine($"Tempat Lahir: {row["tempat_lahir"]}");
+                Console.WriteLine($"Tanggal Lahir: {row["tanggal_lahir"]}");
+                Console.WriteLine($"Jenis Kelamin: {row["jenis_kelamin"]}");
+                Console.WriteLine($"Golongan Darah: {row["golongan_darah"]}");
+                Console.WriteLine($"Alamat: {row["alamat"]}");
+                Console.WriteLine($"Agama: {row["agama"]}");
+                Console.WriteLine($"Status Perkawinan: {row["status_perkawinan"]}");
+                Console.WriteLine($"Pekerjaan: {row["pekerjaan"]}");
+                Console.WriteLine($"Kewarganegaraan: {row["kewarganegaraan"]}");
+                Console.WriteLine();
+            }
+            Console.WriteLine("Similarity: " + entry.Item2);
+            Console.WriteLine();
+        }
+
         if (exist == false)
         {
             DatabaseManager.inputData(filePath);
         }
-
-
-
     }
-
-
     private static (int, int) GetDimensionsForPixels(int totalPixels)
     {
         return totalPixels switch
@@ -83,5 +103,5 @@ public class PatternMatcher
             10000 => (100, 100),
             _ => throw new ArgumentException("Invalid number of pixels. Please choose from the given options.")
         };
-     }
+    }
 }
