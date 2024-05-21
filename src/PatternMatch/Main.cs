@@ -15,12 +15,11 @@ public class PatternMatcher
 
         var parser = new PatternMatching.Parser();
 
-        string filePath = "input/Attara.BMP";
+        string filePath = "input/Jojo.BMP";
         Image input = Image.FromFile(filePath);
         string ascii = parser.ConvertImageToAscii(input, Width, Height);
-        Console.WriteLine(ascii);
 
-        Dictionary<string, string> fingerprintsDatabase = DatabaseManager.FetchFingerprintsFromDatabase();
+        Dictionary<string, string> fingerprintsDatabase = DatabaseManager.FetchFingerprintsFromDatabase(Width, Height);
 
         // Cari exact match dulu pake KMP dan BM
         Console.WriteLine("\nKMP and BM:");
@@ -69,5 +68,5 @@ public class PatternMatcher
             10000 => (100, 100),
             _ => throw new ArgumentException("Invalid number of pixels. Please choose from the given options.")
         };
-    }
+     }
 }

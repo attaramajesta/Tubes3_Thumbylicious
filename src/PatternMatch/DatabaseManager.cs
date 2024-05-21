@@ -11,7 +11,7 @@ namespace PatternMatch
         private static string connectionString = "Server=localhost; Port=1234; Database=tubes3; User ID=root; Password=bbee2e7;";
 
         // Fetch data sidik_jari dari database ke dictionary
-        public static Dictionary<string, string> FetchFingerprintsFromDatabase()
+        public static Dictionary<string, string> FetchFingerprintsFromDatabase(int width, int height)
         {
             Dictionary<string, string> fingerprintsDatabase = new Dictionary<string, string>();
 
@@ -23,6 +23,7 @@ namespace PatternMatch
 
                     string query = "SELECT nama, berkas_citra FROM sidik_jari";
                     MySqlCommand command = new MySqlCommand(query, connection);
+                    var parser = new PatternMatching.Parser();
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -30,7 +31,12 @@ namespace PatternMatch
                         {
                             string nama = reader["nama"].ToString();
                             string berkas_citra = reader["berkas_citra"].ToString();
-                            fingerprintsDatabase.Add(nama, berkas_citra);
+
+                            Image image = Image.FromFile(berkas_citra);
+                            string ascii = parser.ConvertImageToAscii(image, width, height);
+
+                            Console.WriteLine($"Fingerprint data found: {nama}");
+                            fingerprintsDatabase.Add(nama, ascii);
                         }
                     }
                 }
@@ -95,10 +101,8 @@ namespace PatternMatch
                 {
                     try
                     {
-                        Image img = Image.FromFile(filePath);
-                        string ascii = parser.ConvertImageToAscii(img, img.Width, img.Height);
                         string name = Path.GetFileNameWithoutExtension(filePath);
-                        Insert(ascii, name);
+                        Insert(filePath, name);
                     }
                     catch (Exception ex)
                     {
