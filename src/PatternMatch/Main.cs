@@ -8,15 +8,6 @@ public class PatternMatcher
 {
     public static void Main(string[] args)
     {
-        // string folderPath = "database";
-        // if (!Directory.Exists(folderPath))
-        // {
-        //     Console.WriteLine($"The folder path {folderPath} does not exist.");
-        //     return;
-        // }
-        // Load fingerprint data from the database
-        // DatabaseManager.LoadFingerprints(folderPath);
-
         Console.WriteLine("Enter the total number of pixels (30, 60, 90, 120, 240, 480, 10000):");
         int totalPixels = int.Parse(Console.ReadLine());
 
@@ -24,31 +15,12 @@ public class PatternMatcher
 
         var parser = new PatternMatching.Parser();
 
-        string filePath = "database/Jojo.jpg";
-        Image img1 = Image.FromFile(filePath);
-        string ascii = parser.ConvertImageToAscii(img1, Width, Height);
-        string name = Path.GetFileNameWithoutExtension(filePath);
-        DatabaseManager.Insert(ascii, name);
+        string filePath = "input/Attara.BMP";
+        Image input = Image.FromFile(filePath);
+        string ascii = parser.ConvertImageToAscii(input, Width, Height);
+        Console.WriteLine(ascii);
 
-        // Belum ada MySQL jadi hardcode dulu
-        string filePath2 = "database/Jebe.jpg";
-        Image img2 = Image.FromFile("database/Jebe.jpg");
-        string ascii2 = parser.ConvertImageToAscii(img2, Width, Height);
-        string name2 = Path.GetFileNameWithoutExtension(filePath2);
-        DatabaseManager.Insert(ascii2, name2);
-
-        string filePath3 = "database/Attara.jpg";
-        Image img3 = Image.FromFile("database/Attara.jpg");
-        string ascii3 = parser.ConvertImageToAscii(img3, Width, Height);
-        string name3 = Path.GetFileNameWithoutExtension(filePath3);
-        DatabaseManager.Insert(ascii3, name3);
-
-        // Load ke dictionary (method loader harus ditambahin nanti)
-        Dictionary<string, string> fingerprintsDatabase = new Dictionary<string, string>
-        {
-            { "John Doe", ascii2 },
-            { "Jane Doe", ascii3 }
-        };
+        Dictionary<string, string> fingerprintsDatabase = DatabaseManager.FetchFingerprintsFromDatabase();
 
         // Cari exact match dulu pake KMP dan BM
         Console.WriteLine("\nKMP and BM:");
