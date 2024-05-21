@@ -8,6 +8,8 @@ public class PatternMatcher
 {
     public static void Main(string[] args)
     {
+        DatabaseManager.generateBiodata();
+
         Console.WriteLine("Enter the total number of pixels (30, 60, 90, 120, 240, 480, 10000):");
         int totalPixels = int.Parse(Console.ReadLine());
 
@@ -15,7 +17,7 @@ public class PatternMatcher
 
         var parser = new PatternMatching.Parser();
 
-        string filePath = "input/Jojo.BMP";
+        string filePath = "input/Jojo.png";
         Image input = Image.FromFile(filePath);
         string ascii = parser.ConvertImageToAscii(input, Width, Height);
 
@@ -23,14 +25,16 @@ public class PatternMatcher
 
         // Cari exact match dulu pake KMP dan BM
         Console.WriteLine("\nKMP and BM:");
+        bool exist = false;
         foreach (var fingerprint in fingerprintsDatabase)
         {
             bool isMatchKMP = KMP.KMPSearch(ascii, fingerprint.Value);
             bool isMatchBM = BM.search(ascii.ToCharArray(), fingerprint.Value.ToCharArray());
-
             if (isMatchKMP || isMatchBM)
             {
                 Console.WriteLine($"Exact match found with {fingerprint.Key} with similarity 100%.");
+                exist = true;
+                break;
             }
             else
             {
@@ -53,8 +57,19 @@ public class PatternMatcher
         for (int i = 0; i < Math.Min(5, similarFingerprints.Count); i++)
         {
             Console.WriteLine($"{similarFingerprints[i].Key}: {similarFingerprints[i].Value * 100}% similarity");
+            DatabaseManager.showBiodata(similarFingerprints[i].Key);
         }
+        
+        if (exist == false)
+        {
+            DatabaseManager.inputData(filePath);
+        }
+
+
+
     }
+
+
     private static (int, int) GetDimensionsForPixels(int totalPixels)
     {
         return totalPixels switch
