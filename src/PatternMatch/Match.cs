@@ -65,9 +65,13 @@ public class PatternMatcher
 
         similarFingerprints.Sort((x, y) => y.Value.CompareTo(x.Value));
 
+        Regex regex = new Regex();
         for (int i = 0; i < Math.Min(5, similarFingerprints.Count); i++)
         {
-            DataTable biodata = DatabaseManager.showBiodata(similarFingerprints[i].Key);
+            // Console.WriteLine($"Text: {similarFingerprints[i].Key}");
+            string alteredText = regex.Alter(similarFingerprints[i].Key);
+            // Console.WriteLine($"Altered: {alteredText}");
+            DataTable biodata = DatabaseManager.showBiodata(alteredText);
             double similarityValue = similarFingerprints[i].Value * 100;
             results.Add(new Tuple<DataTable, double>(biodata, similarityValue));
         }
