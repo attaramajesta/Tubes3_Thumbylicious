@@ -9,7 +9,7 @@ namespace PatternMatch
 {
     public class DatabaseManager
     {
-        private static string connectionString = "Server=localhost; Port=1234; Database=tubes3; User ID=root; Password=bbee2e7;";
+        private static string connectionString = "Server=localhost; Port={Port}; Database=tubes3; User ID=root; Password={Password};";
 
         // Fetch data sidik_jari dari database ke dictionary
         public static Dictionary<string, string> FetchFingerprintsFromDatabase(int width, int height)
@@ -123,7 +123,7 @@ namespace PatternMatch
                     Console.WriteLine("Connection to database established successfully.");
 
                     // Query to delete all data
-                    string query = "DELETE FROM biodata";
+                    string query = "DELETE FROM sidik_jari";
                     MySqlCommand command = new MySqlCommand(query, connection);
 
                     Console.WriteLine("Clearing database...");
