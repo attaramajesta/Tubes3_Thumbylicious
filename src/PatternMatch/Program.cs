@@ -9,25 +9,30 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Enter the total number of pixels (30, 60, 90, 120, 240, 480, 10000):");
-        int totalPixels;
-        while (!int.TryParse(Console.ReadLine(), out totalPixels) || !IsValidPixelOption(totalPixels))
-        {
-            Console.WriteLine("Invalid input. Please enter a valid number of pixels (30, 60, 90, 120, 240, 480, 10000):");
-        }
+        // Console.WriteLine("Enter the total number of pixels (30, 60, 90, 120, 240, 480, 10000):");
+        // int totalPixels;
+        // while (!int.TryParse(Console.ReadLine(), out totalPixels) || !IsValidPixelOption(totalPixels))
+        // {
+        //     Console.WriteLine("Invalid input. Please enter a valid number of pixels (30, 60, 90, 120, 240, 480, 10000):");
+        // }
 
+        int totalPixels = 60;
         string filePath = "input/Jojo.BMP";
+        string algorithm = "KMP";
 
-        Console.WriteLine("Enter the Algorithm you want to use (KMP or BM):");
-        string algorithm = Console.ReadLine();
-        while (algorithm != "KMP" && algorithm != "BM")
-        {
-            Console.WriteLine("Invalid input. Please enter the Algorithm you want to use (KMP or BM):");
-            algorithm = Console.ReadLine();
-        }
+        // Console.WriteLine("Enter the Algorithm you want to use (KMP or BM):");
+        // string algorithm = Console.ReadLine();
+        // while (algorithm != "KMP" && algorithm != "BM")
+        // {
+        //     Console.WriteLine("Invalid input. Please enter the Algorithm you want to use (KMP or BM):");
+        //     algorithm = Console.ReadLine();
+        // }
 
         PatternMatcher matcher = new PatternMatcher();
         List<Tuple<DataTable, double>> results = matcher.Match(totalPixels, filePath, algorithm);
+
+        DatabaseManager dbManager = new DatabaseManager();
+        string finalImage = dbManager.GetOutputImage(results);
 
         foreach (var entry in results)
         {

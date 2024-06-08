@@ -73,6 +73,15 @@ public class PatternMatcher
             // Console.WriteLine($"Altered: {alteredText}");
             DataTable biodata = DatabaseManager.showBiodata(alteredText);
             double similarityValue = similarFingerprints[i].Value * 100;
+
+            if (biodata.Rows.Count > 0)
+            {
+                foreach (DataRow row in biodata.Rows)
+                {
+                    row["nama"] = similarFingerprints[i].Key;
+                }
+            }
+
             results.Add(new Tuple<DataTable, double>(biodata, similarityValue));
         }
 

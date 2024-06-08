@@ -9,7 +9,7 @@ namespace PatternMatch
 {
     public class DatabaseManager
     {
-        private static string connectionString = "Server=localhost; Port={Port}; Database=tubes3; User ID=root; Password={Password};";
+        private static string connectionString = "Server=localhost; Port={port}; Database=tubes3; User ID=root; Password={password};";
 
         // Fetch data sidik_jari dari database ke dictionary
         public static Dictionary<string, string> FetchFingerprintsFromDatabase(int width, int height)
@@ -123,7 +123,7 @@ namespace PatternMatch
                     Console.WriteLine("Connection to database established successfully.");
 
                     // Query to delete all data
-                    string query = "DELETE FROM sidik_jari";
+                    string query = "DELETE FROM biodata";
                     MySqlCommand command = new MySqlCommand(query, connection);
 
                     Console.WriteLine("Clearing database...");
@@ -479,6 +479,53 @@ namespace PatternMatch
             {
                 Console.WriteLine("Terjadi kesalahan: " + ex.Message);
             }
+        }
+
+        public string GetOutputImage(List<Tuple<DataTable, double>> results)
+        {
+            if (results == null || results.Count == 0)
+            {
+                return "GetOutputImage error";
+            }
+
+            DataTable firstTable = results[0].Item1;
+            if (firstTable.Rows.Count == 0)
+            {
+                return "GetOutputImage error";
+            }
+
+            string nama = firstTable.Rows[0]["nama"].ToString();
+            return GetImage(nama);
+        }
+
+        public static string GetImage(string nama)
+        {
+            string imageFilePath = null;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT berkas_citra FROM sidik_jari WHERE nama = @nama";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@nama", nama);
+
+                try
+                {
+                    connection.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        imageFilePath = reader["berkas_citra"].ToString();
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+            return imageFilePath;
         }
 
         public static DataTable showBiodata(string nama)
