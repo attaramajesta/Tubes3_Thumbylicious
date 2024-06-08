@@ -9,7 +9,7 @@ namespace PatternMatch
 {
     public class DatabaseManager
     {
-        private static string connectionString = "Server=localhost; Port=3306; Database=tubes3; User ID=root; Password=1234;";
+        private static string connectionString = "Server=localhost; Port=1234; Database=tubes3; User ID=root; Password=bbee2e7;";
 
         // Fetch data sidik_jari dari database ke dictionary
         public static Dictionary<string, string> FetchFingerprintsFromDatabase(int width, int height)
@@ -143,9 +143,10 @@ namespace PatternMatch
                 }
             }
         }
-        
+
         // Generate biodata random ke database
-        public static void generateBiodata() {
+        public static void generateBiodata()
+        {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -222,10 +223,10 @@ namespace PatternMatch
                     // Pseudo-random number generator
                     Random rand = new Random();
 
-                    string[] placesOfBirth = { "Jakarta", "Bandung", "Jogja", "Bali", "Surabaya", "Medan"};
+                    string[] placesOfBirth = { "Jakarta", "Bandung", "Jogja", "Bali", "Surabaya", "Medan" };
                     string[] genders = { "Laki-Laki", "Perempuan" };
                     string[] bloodTypes = { "A", "B", "AB", "O" };
-                    string[] addresses = { "Jl. in aja dulu", "Jl. jalan yuk", "Jl. doang jadian kagak", "Jl. i saja hidup ini", "Jl. lagi sama mantan"};
+                    string[] addresses = { "Jl. in aja dulu", "Jl. jalan yuk", "Jl. doang jadian kagak", "Jl. i saja hidup ini", "Jl. lagi sama mantan" };
                     string[] religions = { "Islam", "Protestan", "Katolik", "Buddha", "Hindu", "Konghucu" };
                     string[] maritalStatuses = { "Belum Menikah", "Menikah", "Cerai" };
                     string[] jobs = { "Polisi", "Mahasiswa", "Programmer", "Tidak bekerja", "Wirausahawan", "Pegawai Negeri Sipil" };
@@ -349,7 +350,7 @@ namespace PatternMatch
                 "David Young", "Michael Jackson", "James Lewis", "Anthony Thomas", "Daniel Allen",
                 "William Clark", "Thomas Clark", "Linda Miller"
             };
-    
+
             string[] files = Directory.GetFiles(folderPath);
 
             if (files.Length > names.Count)
@@ -441,7 +442,7 @@ namespace PatternMatch
                         Insert(destinationPath, nama);
                         Console.WriteLine("Data berhasil dimasukkan ke SQL database.");
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -449,7 +450,7 @@ namespace PatternMatch
                 }
             }
         }
-    
+
         public static void CopyImage(string sourcePath, string destinationPath)
         {
             try
@@ -494,7 +495,7 @@ namespace PatternMatch
                     connection.Open();
                     MySqlDataReader reader = cmd.ExecuteReader();
                     biodataTable.Load(reader);
-                    
+
                     // Menampilkan hasil biodata
                     // foreach (DataRow row in biodataTable.Rows)
                     // {

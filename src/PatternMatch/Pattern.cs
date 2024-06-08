@@ -109,7 +109,7 @@ namespace PatternMatching
 
         /* A pattern searching function that uses Bad
         Character Heuristic of Boyer Moore Algorithm */
-        public static bool search(char[] txt, char[] pat)
+        public static bool Search(char[] txt, char[] pat)
         {
             int m = pat.Length;
             int n = txt.Length;
