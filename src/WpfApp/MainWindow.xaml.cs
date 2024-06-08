@@ -41,6 +41,17 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
+    private string _finalImageString;
+    public string FinalImageString
+    {
+        get { return _finalImageString; }
+        set
+        {
+            _finalImageString = value;
+            OnPropertyChanged(nameof(FinalImageString));
+        }
+    }
+    
     public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged(string propertyName)
     {
@@ -51,7 +62,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void SetSemiTransparentBackground()
     {
-        Color baseColor = Colors.White; // Base color
+        Color baseColor = Colors.White;
         byte alpha = 128;
         SemiTransparentBackground = GetSemiTransparentColor(baseColor, alpha);
 
@@ -147,6 +158,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 SelectImageButton.Visibility = Visibility.Collapsed;
     
                 CancelButton.Visibility = Visibility.Visible;
+
+                ResultsTextBlock.Text = ""; 
+
+                ResultsTextBlocks.Text = "";
+
+                ResultImage.Source = null;
             }
         }
     }
@@ -158,12 +175,18 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         CancelButton.Visibility = Visibility.Collapsed;
     
         SelectImageButton.Visibility = Visibility.Visible;
+
+        ResultsTextBlock.Text = ""; 
+
+        ResultsTextBlocks.Text = "";
+
+        ResultImage.Source = null;
     }
 
     private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
     {
         ScrollViewer scv = (ScrollViewer)sender;
-        scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta / 5); // Adjust the 5 to change the sensitivity
+        scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta / 5); 
         e.Handled = true;
     }
 
@@ -176,21 +199,18 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         _algorithm = "BM";
     }
-    
+
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Get the source of the image
             var bitmapImage = ImageOutput.Source as BitmapImage;
             string sourcePath = bitmapImage.UriSource.LocalPath;
 
-            // Define the destination path
             string destinationPath = System.IO.Path.Combine("input", System.IO.Path.GetFileName(sourcePath));
 
-            // Copy the image to the input folder
             System.IO.File.Copy(sourcePath, destinationPath, true);
-            // Initialize and use PatternMatcher
+            
             Algorithm = _algorithm;
         
             int totalPixels = 60;
@@ -202,20 +222,46 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         
             PatternMatcher matcher = new PatternMatcher();
             List<Tuple<DataTable, double>> results = matcher.Match(totalPixels, filePath, algorithm);
-        
+
+            DatabaseManager dbManager = new DatabaseManager();
+            string finalImage = dbManager.GetOutputImage(results);
+
+            if (!string.IsNullOrEmpty(finalImage))
+            {
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+                string parentDirectory = basePath;
+                for (int i = 0; i < 4; i++)
+                {
+                    parentDirectory = System.IO.Directory.GetParent(parentDirectory).FullName;
+                }
+
+                string relativePath = System.IO.Path.Combine(parentDirectory, finalImage);
+
+                if (System.IO.File.Exists(relativePath))
+                {
+                    ResultImage.Source = new BitmapImage(new Uri(relativePath, UriKind.Absolute));
+                }
+                else
+                {
+                    MessageBox.Show($"Image not found or invalid path: {relativePath}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Image path is empty.");
+            }
+           
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
         
-            // Display results
-            ResultsTextBlock.Text = ""; // Clear the TextBlock
-            ResultsTextBlocks.Text = "";
             if (results.Count == 0)
             {
                 ResultsTextBlock.Text = "No results found.\n";
             }
             if (results.Any())
             {
-                DataRow row = results[0].Item1.Rows[0]; // Get the first row of the first result
+                DataRow row = results[0].Item1.Rows[0]; 
                 ResultsTextBlock.Text += $"NIK: {row["NIK"]}\n"
                                         + $"Nama: {row["nama"]}\n"
                                         + $"Tempat Lahir: {row["tempat_lahir"]}\n"
@@ -228,13 +274,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                                         + $"Pekerjaan: {row["pekerjaan"]}\n"
                                         + $"Kewarganegaraan: {row["kewarganegaraan"]}\n\n";
             }
+
             ResultsTextBlock.Text += $"Similarity: {results[0].Item2} %\n";
             // Display execution time
             ResultsTextBlock.Text += $"Execution Time: {ts.TotalMilliseconds} ms\n";
 
-            for (int i = 1; i < Math.Min(5, results.Count); i++) // Loop through the 2nd to 5th results
+            for (int i = 1; i < Math.Min(5, results.Count); i++) 
             {
-                DataRow row = results[i].Item1.Rows[0]; // Get the first row of the i-th result
+                DataRow row = results[i].Item1.Rows[0]; 
                 ResultsTextBlocks.Text += $"RESULT {i+1}:\n\n"
                                         + $"NIK: {row["NIK"]}\n"
                                         + $"Nama: {row["nama"]}\n"

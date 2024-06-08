@@ -386,12 +386,14 @@
                                                     <RowDefinition Height="50*" />
                                                 </Grid.RowDefinitions>
                                                 <Grid Grid.Row="0">
-                                                    <Border>
+                                                    <Border Margin="0,-20, 0, 0">
                                                         <TextBlock Text="{Binding Algorithm}" Foreground="White" FontSize="24" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     </Border>
                                                 </Grid>
                                                 <Grid Grid.Row="1">
-                                                    
+                                                    <Border Width="200" Height= "200" Margin="0,-20, 0, 0">
+                                                        <Image x:Name="ResultImage"/>
+                                                    </Border>
                                                 </Grid>
                                                 <Grid Grid.Row="2">
                                                     <TextBlock x:Name="ResultsTextBlock" Foreground="White" FontSize="14"/>
