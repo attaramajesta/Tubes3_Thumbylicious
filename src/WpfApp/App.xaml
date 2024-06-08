@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WpfApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <FontFamily x:Key="KosugiMaru">pack://application:,,,/WpfApp;component/Fonts/#Kosugi Maru</FontFamily>
     </Application.Resources>
 </Application>

@@ -10,232 +10,408 @@
         AllowsTransparency="True" Background="Transparent">
 
     <Grid Background="Transparent">
-        <Border x:Name="MainBorder" CornerRadius="20" Margin="0,0,0,0">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF1C1C1C" Offset="0"/>
-                    <GradientStop Color="#FF2D2D2D" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
+        <Border x:Name="MainBorder" CornerRadius="20" Margin="0,0,0,0" Background="#1e1e1e">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0">
-                        <Button Width="15" Height="15" Click="CloseButton_Click" Background="Black" BorderThickness="0" Margin="0,0,2,0">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border x:Name="border" Background="#FF605C" CornerRadius="20">
-                                        
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="DarkGray"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button Width="15" Height="15" Click="MaximizeButton_Click" Background="Black" BorderThickness="0" Margin="5,0,2,0">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border x:Name="border" Background="#FFD23F" CornerRadius="20">
-                                        
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="DarkGray"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button Width="15" Height="15" Click="MinimizeButton_Click" Background="Black" BorderThickness="0" Margin="5,0,2,0">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border x:Name="border" Background="#00CA4E" CornerRadius="20">
-                                        
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="DarkGray"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Border CornerRadius="20,0,0,20" Background="#191919">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Width" Value="50" />
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" To="150" Duration="0:0:0.5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" To="50" Duration="0:0:0.5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel VerticalAlignment="Center">
+                            <Button Content="Home" Click="HomeButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="24" Height="50">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border" Background="{TemplateBinding Background}">
+                                            <TextBlock x:Name="textBlock" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="White" Duration="0:0:0.5"/>
+                                                            <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#191919" Duration="0:0:0.5"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.5"/>
+                                                            <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#d0d0d0" Duration="0:0:0.5"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                            <Button Content="About" Click="AboutButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="24" Height="50">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border" Background="{TemplateBinding Background}">
+                                            <TextBlock x:Name="textBlock" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="White" Duration="0:0:0.5"/>
+                                                            <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#191919" Duration="0:0:0.5"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.5"/>
+                                                            <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#d0d0d0" Duration="0:0:0.5"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                            <Button Content="Information" Click="InformationButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="24" Height="50">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border" Background="{TemplateBinding Background}">
+                                            <TextBlock x:Name="textBlock" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="White" Duration="0:0:0.5"/>
+                                                            <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#191919" Duration="0:0:0.5"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.5"/>
+                                                            <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#d0d0d0" Duration="0:0:0.5"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </Border>
                 </Grid>
-                <Grid Grid.Row="1" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35*"/>
-                        <ColumnDefinition Width="65*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Background="DarkGray">
-                        <!-- Add your content for the left div here -->
-                    </Grid>
-                    <Grid Grid.Column="1">
+                <Grid Grid.Column="1">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="45*"/>
-                            <RowDefinition Height="55*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="45*"/>
-                                <ColumnDefinition Width="55*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" Margin="50,15,15,15">
-                                <Border CornerRadius="20">
-                                    <ContentControl x:Name="ImageContentControl" AllowDrop="True" DragEnter="ContentControl_DragEnter" Drop="ContentControl_Drop">
-                                        <Grid>
-                                            <Border Background="{Binding SemiTransparentBackground}" CornerRadius="20" ClipToBounds="True" BorderThickness="0">
-                                                <Image x:Name="ImageOutput" Stretch="UniformToFill"/>
+                            <TextBlock FontFamily='{StaticResource KosugiMaru}' Text="Thumbylicious" FontSize="18" Foreground="#d0d0d0" FontWeight='bold' Margin='15,0,0,-5' VerticalAlignment='center'/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,0,0">
+                                <Button Width="15" Height="15" Click="MinimizeButton_Click" Background="Black" BorderThickness="0" Margin="0,0,5,0">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" Background="#00CA4E" CornerRadius="20">
                                             </Border>
-                                            <Button x:Name="SelectImageButton" Click="SelectImageButton_Click" Content="Input Image Here" Panel.ZIndex="10">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="20">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Button.Template>
-                                            </Button>
-                                            <Button x:Name="CancelButton" Click="CancelButton_Click" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Panel.ZIndex="20" Visibility="Collapsed" Background="White" Foreground="Black">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="10" Height="20" Width="50">
-                                                            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="border" Property="Background" Value="Red"/>
-                                                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Button.Template>
-                                            </Button>                        
-                                        </Grid>
-                                    </ContentControl>
-                                </Border>
-                            </Grid>
-                            <Grid Grid.Column="1" Margin="50,15,50,15">
-                               <Grid.RowDefinitions>
-                                    <RowDefinition Height="33*"/>
-                                    <RowDefinition Height="33*"/>
-                                    <RowDefinition Height="33*"/>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Margin="15">
-                                    <Button Content="Knuth-Morris-Pratt">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                                <Setter Property="Background" Value="Transparent"/>
-                                                <Setter Property="Foreground" Value="White"/>
-                                                <Setter Property="BorderBrush" Value="White"/>
-                                                <Setter Property="BorderThickness" Value="1"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"  CornerRadius="20">
-                                                                <VisualStateManager.VisualStateGroups>
-                                                                    <VisualStateGroup x:Name="CommonStates">
-                                                                        <VisualState x:Name="Normal"/>
-                                                                        <VisualState x:Name="MouseOver">
-                                                                            <Storyboard>
-                                                                                <ColorAnimation Duration="0:0:0.3" To="White" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
-                                                                                <ColorAnimation Duration="0:0:0.3" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="contentPresenter"/>
-                                                                            </Storyboard>
-                                                                        </VisualState>
-                                                                    </VisualStateGroup>
-                                                                </VisualStateManager.VisualStateGroups>
-                                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </Grid>
-                                <Grid Grid.Row="1" Margin="15">
-                                    <Button Content="Boyer-Moore">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                                <Setter Property="Background" Value="Transparent"/>
-                                                <Setter Property="Foreground" Value="White"/>
-                                                <Setter Property="BorderBrush" Value="White"/>
-                                                <Setter Property="BorderThickness" Value="1"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="20">
-                                                                <VisualStateManager.VisualStateGroups>
-                                                                    <VisualStateGroup x:Name="CommonStates">
-                                                                        <VisualState x:Name="Normal"/>
-                                                                        <VisualState x:Name="MouseOver">
-                                                                            <Storyboard>
-                                                                                <ColorAnimation Duration="0:0:0.3" To="White" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
-                                                                                <ColorAnimation Duration="0:0:0.3" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="contentPresenter"/>
-                                                                            </Storyboard>
-                                                                        </VisualState>
-                                                                    </VisualStateGroup>
-                                                                </VisualStateManager.VisualStateGroups>
-                                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </Grid>
-                                <Grid Grid.Row="2" Margin="75,15,75,15">
-                                    <Button Content="Submit">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                                <Setter Property="Background" Value="Transparent"/>
-                                                <Setter Property="Foreground" Value="White"/>
-                                                <Setter Property="BorderBrush" Value="White"/>
-                                                <Setter Property="BorderThickness" Value="1"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"  CornerRadius="20">
-                                                                <VisualStateManager.VisualStateGroups>
-                                                                    <VisualStateGroup x:Name="CommonStates">
-                                                                        <VisualState x:Name="Normal"/>
-                                                                        <VisualState x:Name="MouseOver">
-                                                                            <Storyboard>
-                                                                                <ColorAnimation Duration="0:0:0.3" To="White" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
-                                                                                <ColorAnimation Duration="0:0:0.3" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="contentPresenter"/>
-                                                                            </Storyboard>
-                                                                        </VisualState>
-                                                                    </VisualStateGroup>
-                                                                </VisualStateManager.VisualStateGroups>
-                                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </Grid>
-                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="DarkGray"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Width="15" Height="15" Click="MaximizeButton_Click" Background="Black" BorderThickness="0" Margin="0,0,5,0">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" Background="#FFD23F" CornerRadius="20">
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="DarkGray"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button Width="15" Height="15" Click="CloseButton_Click" Background="Black" BorderThickness="0" Margin="0,0,7,0">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" Background="#FF605C" CornerRadius="20">
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="DarkGray"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
                         </Grid>
-                        <Grid Grid.Row="1" Margin="30,10,30,10">
-                            <Border BorderBrush="#656777" BorderThickness="0,0.5,0,0">
-                                <StackPanel>
-                                    <TextBlock Text="Result" Foreground="#656777" FontSize="12" FontWeight="Bold"/>
-                                    <Grid Background="White">
-                                        
+                        <Grid Grid.Row="1" Margin="10">
+                            <Border x:Name="home" CornerRadius="20">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="600" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40*" />
+                                            <RowDefinition Height="60*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Border CornerRadius="20" Background="#252525" Padding='20'>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="200" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="0">
+                                                        <ContentControl x:Name="ImageContentControl" AllowDrop="True" DragEnter="ContentControl_DragEnter" Drop="ContentControl_Drop">
+                                                            <Grid>
+                                                                <Border Background="{Binding SemiTransparentBackground}" CornerRadius="20" ClipToBounds="True" BorderThickness="0">
+                                                                    <Image x:Name="ImageOutput" Stretch="UniformToFill"/>
+                                                                </Border>
+                                                                <Button x:Name="SelectImageButton" Click="SelectImageButton_Click" Content="Input Image Here" Panel.ZIndex="10">
+                                                                    <Button.Template>
+                                                                        <ControlTemplate TargetType="Button">
+                                                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="20">
+                                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                            </Border>
+                                                                        </ControlTemplate>
+                                                                    </Button.Template>
+                                                                </Button>
+                                                                <Button x:Name="CancelButton" Click="CancelButton_Click" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Panel.ZIndex="50" Visibility="Collapsed" Background="White" Foreground="Black">
+                                                                    <Button.Template>
+                                                                        <ControlTemplate TargetType="Button">
+                                                                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="10" Height="20" Width="50">
+                                                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                            </Border>
+                                                                            <ControlTemplate.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter TargetName="border" Property="Background" Value="Red"/>
+                                                                                    <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White"/>
+                                                                                </Trigger>
+                                                                            </ControlTemplate.Triggers>
+                                                                        </ControlTemplate>
+                                                                    </Button.Template>
+                                                                </Button>                        
+                                                            </Grid>
+                                                        </ContentControl>
+                                                    </Grid>
+                                                    <Grid Grid.Column="1">
+                                                        <Border HorizontalAlignment="center" Width="250">
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="33*" />
+                                                                    <RowDefinition Height="33*" />
+                                                                    <RowDefinition Height="33*" />
+                                                                </Grid.RowDefinitions>
+                                                                <Grid Grid.Row="0" Margin="10">
+                                                                    <Button Content="Knuth-Morris-Pratt">
+                                                                        <Button.Style>
+                                                                            <Style TargetType="Button">
+                                                                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                                                                <Setter Property="Background" Value="Transparent"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                                <Setter Property="BorderBrush" Value="White"/>
+                                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                                <Setter Property="Template">
+                                                                                    <Setter.Value>
+                                                                                        <ControlTemplate TargetType="Button">
+                                                                                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"  CornerRadius="20">
+                                                                                                <VisualStateManager.VisualStateGroups>
+                                                                                                    <VisualStateGroup x:Name="CommonStates">
+                                                                                                        <VisualState x:Name="Normal"/>
+                                                                                                        <VisualState x:Name="MouseOver">
+                                                                                                            <Storyboard>
+                                                                                                                <ColorAnimation Duration="0:0:0.3" To="White" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
+                                                                                                                <ColorAnimation Duration="0:0:0.3" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="contentPresenter"/>
+                                                                                                            </Storyboard>
+                                                                                                        </VisualState>
+                                                                                                    </VisualStateGroup>
+                                                                                                </VisualStateManager.VisualStateGroups>
+                                                                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                            </Border>
+                                                                                        </ControlTemplate>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                </Grid>
+                                                                <Grid Grid.Row="1" Margin="10">
+                                                                    <Button Content="Boyer-Moore">
+                                                                        <Button.Style>
+                                                                            <Style TargetType="Button">
+                                                                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                                                                <Setter Property="Background" Value="Transparent"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                                <Setter Property="BorderBrush" Value="White"/>
+                                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                                <Setter Property="Template">
+                                                                                    <Setter.Value>
+                                                                                        <ControlTemplate TargetType="Button">
+                                                                                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="20">
+                                                                                                <VisualStateManager.VisualStateGroups>
+                                                                                                    <VisualStateGroup x:Name="CommonStates">
+                                                                                                        <VisualState x:Name="Normal"/>
+                                                                                                        <VisualState x:Name="MouseOver">
+                                                                                                            <Storyboard>
+                                                                                                                <ColorAnimation Duration="0:0:0.3" To="White" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
+                                                                                                                <ColorAnimation Duration="0:0:0.3" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="contentPresenter"/>
+                                                                                                            </Storyboard>
+                                                                                                        </VisualState>
+                                                                                                    </VisualStateGroup>
+                                                                                                </VisualStateManager.VisualStateGroups>
+                                                                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                            </Border>
+                                                                                        </ControlTemplate>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                </Grid>
+                                                                <Grid Grid.Row="2" Margin="75,10,75,10">
+                                                                    <Button Content="Submit">
+                                                                        <Button.Style>
+                                                                            <Style TargetType="Button">
+                                                                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                                                                <Setter Property="Background" Value="Transparent"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                                <Setter Property="BorderBrush" Value="White"/>
+                                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                                <Setter Property="Template">
+                                                                                    <Setter.Value>
+                                                                                        <ControlTemplate TargetType="Button">
+                                                                                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"  CornerRadius="20">
+                                                                                                <VisualStateManager.VisualStateGroups>
+                                                                                                    <VisualStateGroup x:Name="CommonStates">
+                                                                                                        <VisualState x:Name="Normal"/>
+                                                                                                        <VisualState x:Name="MouseOver">
+                                                                                                            <Storyboard>
+                                                                                                                <ColorAnimation Duration="0:0:0.3" To="White" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border"/>
+                                                                                                                <ColorAnimation Duration="0:0:0.3" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="contentPresenter"/>
+                                                                                                            </Storyboard>
+                                                                                                        </VisualState>
+                                                                                                    </VisualStateGroup>
+                                                                                                </VisualStateManager.VisualStateGroups>
+                                                                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                            </Border>
+                                                                                        </ControlTemplate>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Border>
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Border CornerRadius="20" Background="#252525" Padding='20' Margin='0,10,0,0'>
+                                                
+                                            </Border>
+                                        </Grid>
                                     </Grid>
-                                </StackPanel>
+                                    <Grid Grid.Column="1" Margin='10,0,0,0'>
+                                        <Border CornerRadius="20" Background="#252525" Padding='20'>
+                                            
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <Border x:Name="about" Background="#252525" CornerRadius="20" Height="0">
+                                <TextBlock Text="About"></TextBlock>
+                            </Border>
+                            <Border x:Name="information" Height="0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="45*" />
+                                        <RowDefinition Height="50*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="31*"/>
+                                                <ColumnDefinition Width="69*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0">
+                                                <Border Background="#252525" Padding='20' CornerRadius="20">
+                                            
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <Border Background="#252525" Padding='20' Margin='10,0,0,0' CornerRadius="20">
+                                            
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Margin="0,10,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="27*"/>
+                                                <ColumnDefinition Width="30*"/>
+                                                <ColumnDefinition Width="30*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0">
+                                                <Border Background="#252525" Padding='20' CornerRadius="20">
+
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <Border Background="#252525" Padding='20' Margin='10,0,0,0' CornerRadius="20">
+                                            
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Column="2">
+                                                <Border Background="#252525" Padding='20' Margin='10,0,0,0' CornerRadius="20">
+                                            
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             </Border>
                         </Grid>
                     </Grid>

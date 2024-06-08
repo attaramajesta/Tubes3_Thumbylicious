@@ -32,7 +32,6 @@ public partial class MainWindow : Window
 
     }
 
-    // Helper method to create a semi-transparent color
     public static SolidColorBrush GetSemiTransparentColor(Color color, byte alpha)
     {
         return new SolidColorBrush(Color.FromArgb(alpha, color.R, color.G, color.B));
@@ -58,6 +57,27 @@ public partial class MainWindow : Window
     private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
         this.Close();
+    }
+
+    private void HomeButton_Click(object sender, RoutedEventArgs e)
+    {
+        home.Height = Double.NaN; 
+        about.Height = 0;
+        information.Height = 0;
+    }
+    
+    private void AboutButton_Click(object sender, RoutedEventArgs e)
+    {
+        home.Height = 0;
+        about.Height = Double.NaN;
+        information.Height = 0;
+    }
+    
+    private void InformationButton_Click(object sender, RoutedEventArgs e)
+    {
+        home.Height = 0;
+        about.Height = 0;
+        information.Height = Double.NaN; 
     }
 
     private void SelectImageButton_Click(object sender, RoutedEventArgs e)
@@ -97,11 +117,11 @@ public partial class MainWindow : Window
             if (files != null && files.Length > 0)
             {
                 string filename = files[0];
-                ImageContentControl.Content = new Image
-                {
-                    Source = new BitmapImage(new Uri(filename)),
-                    Stretch = Stretch.UniformToFill
-                };
+                ImageOutput.Source = new BitmapImage(new Uri(filename));
+    
+                SelectImageButton.Visibility = Visibility.Collapsed;
+    
+                CancelButton.Visibility = Visibility.Visible;
             }
         }
     }
@@ -114,4 +134,5 @@ public partial class MainWindow : Window
     
         SelectImageButton.Visibility = Visibility.Visible;
     }
+
 }

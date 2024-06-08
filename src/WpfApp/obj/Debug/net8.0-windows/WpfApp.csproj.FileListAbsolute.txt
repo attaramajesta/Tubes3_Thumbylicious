@@ -40,3 +40,4 @@ C:\Users\ASUS\Documents\Stima\Tubes3\Tubes3_Thumbylicious\src\WpfApp\obj\Debug\n
 C:\Users\ASUS\Documents\Stima\Tubes3\Tubes3_Thumbylicious\src\WpfApp\obj\Debug\net8.0-windows\WpfApp.pdb
 C:\Users\ASUS\Documents\Stima\Tubes3\Tubes3_Thumbylicious\src\WpfApp\obj\Debug\net8.0-windows\WpfApp.genruntimeconfig.cache
 C:\Users\ASUS\Documents\Stima\Tubes3\Tubes3_Thumbylicious\src\WpfApp\obj\Debug\net8.0-windows\ref\WpfApp.dll
+C:\Users\ASUS\Documents\Stima\Tubes3\Tubes3_Thumbylicious\src\WpfApp\obj\Debug\net8.0-windows\App.baml
