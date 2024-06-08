@@ -8,13 +8,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Data;
+using System.IO;
+using PatternMatch;
+using PatternMatching;
+using System.Diagnostics;
 
 namespace WpfApp;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : Window, INotifyPropertyChanged
 {
     public MainWindow()
     {
@@ -22,6 +28,25 @@ public partial class MainWindow : Window
         DataContext = this;
         SetSemiTransparentBackground();
     }
+
+    public string _algorithm;
+
+    public string Algorithm
+    {
+        get { return _algorithm; }
+        set
+        {
+            _algorithm = value;
+            OnPropertyChanged("Algorithm");
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     public SolidColorBrush SemiTransparentBackground { get; set; }
 
     private void SetSemiTransparentBackground()
@@ -135,4 +160,99 @@ public partial class MainWindow : Window
         SelectImageButton.Visibility = Visibility.Visible;
     }
 
+    private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+        ScrollViewer scv = (ScrollViewer)sender;
+        scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta / 5); // Adjust the 5 to change the sensitivity
+        e.Handled = true;
+    }
+
+    private void KMPButton_Click(object sender, RoutedEventArgs e)
+    {
+        _algorithm = "KMP";
+    }
+    
+    private void BMButton_Click(object sender, RoutedEventArgs e)
+    {
+        _algorithm = "BM";
+    }
+    
+    private void SubmitButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Get the source of the image
+            var bitmapImage = ImageOutput.Source as BitmapImage;
+            string sourcePath = bitmapImage.UriSource.LocalPath;
+
+            // Define the destination path
+            string destinationPath = System.IO.Path.Combine("input", System.IO.Path.GetFileName(sourcePath));
+
+            // Copy the image to the input folder
+            System.IO.File.Copy(sourcePath, destinationPath, true);
+            // Initialize and use PatternMatcher
+            Algorithm = _algorithm;
+        
+            int totalPixels = 60;
+            string filePath = destinationPath;
+            string algorithm = _algorithm;
+        
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+        
+            PatternMatcher matcher = new PatternMatcher();
+            List<Tuple<DataTable, double>> results = matcher.Match(totalPixels, filePath, algorithm);
+        
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+        
+            // Display results
+            ResultsTextBlock.Text = ""; // Clear the TextBlock
+            ResultsTextBlocks.Text = "";
+            if (results.Count == 0)
+            {
+                ResultsTextBlock.Text = "No results found.\n";
+            }
+            if (results.Any())
+            {
+                DataRow row = results[0].Item1.Rows[0]; // Get the first row of the first result
+                ResultsTextBlock.Text += $"NIK: {row["NIK"]}\n"
+                                        + $"Nama: {row["nama"]}\n"
+                                        + $"Tempat Lahir: {row["tempat_lahir"]}\n"
+                                        + $"Tanggal Lahir: {row["tanggal_lahir"]}\n"
+                                        + $"Jenis Kelamin: {row["jenis_kelamin"]}\n"
+                                        + $"Golongan Darah: {row["golongan_darah"]}\n"
+                                        + $"Alamat: {row["alamat"]}\n"
+                                        + $"Agama: {row["agama"]}\n"
+                                        + $"Status Perkawinan: {row["status_perkawinan"]}\n"
+                                        + $"Pekerjaan: {row["pekerjaan"]}\n"
+                                        + $"Kewarganegaraan: {row["kewarganegaraan"]}\n\n";
+            }
+            ResultsTextBlock.Text += $"Similarity: {results[0].Item2} %\n";
+            // Display execution time
+            ResultsTextBlock.Text += $"Execution Time: {ts.TotalMilliseconds} ms\n";
+
+            for (int i = 1; i < Math.Min(5, results.Count); i++) // Loop through the 2nd to 5th results
+            {
+                DataRow row = results[i].Item1.Rows[0]; // Get the first row of the i-th result
+                ResultsTextBlocks.Text += $"RESULT {i+1}:\n\n"
+                                        + $"NIK: {row["NIK"]}\n"
+                                        + $"Nama: {row["nama"]}\n"
+                                        + $"Tempat Lahir: {row["tempat_lahir"]}\n"
+                                        + $"Tanggal Lahir: {row["tanggal_lahir"]}\n"
+                                        + $"Jenis Kelamin: {row["jenis_kelamin"]}\n"
+                                        + $"Golongan Darah: {row["golongan_darah"]}\n"
+                                        + $"Alamat: {row["alamat"]}\n"
+                                        + $"Agama: {row["agama"]}\n"
+                                        + $"Status Perkawinan: {row["status_perkawinan"]}\n"
+                                        + $"Pekerjaan: {row["pekerjaan"]}\n"
+                                        + $"Kewarganegaraan: {row["kewarganegaraan"]}\n\n";
+                ResultsTextBlocks.Text += $"Similarity: {results[i].Item2} %\n\n";
+            }
+        }
+        catch (Exception ex)
+        {
+        MessageBox.Show($"An error occurred: {ex.Message}");
+        }
+    }
 }

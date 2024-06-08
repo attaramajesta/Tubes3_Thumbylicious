@@ -9,7 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-   <Resource Include="../Fonts/**" />
+    <Resource Include="../Fonts/**" />
+    <ProjectReference Include="..\PatternMatch\PatternMatch.csproj" />
  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.4.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
+  </ItemGroup>
 
 </Project>
