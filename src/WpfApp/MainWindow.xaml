@@ -20,7 +20,7 @@
                     <Border CornerRadius="20,0,0,20" Background="#191919">
                         <Border.Style>
                             <Style TargetType="Border">
-                                <Setter Property="Width" Value="50" />
+                                <Setter Property="Width" Value="75" />
                                 <Style.Triggers>
                                     <EventTrigger RoutedEvent="MouseEnter">
                                         <BeginStoryboard>
@@ -32,7 +32,7 @@
                                     <EventTrigger RoutedEvent="MouseLeave">
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Width" To="50" Duration="0:0:0.5" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" To="75" Duration="0:0:0.5" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
@@ -40,7 +40,7 @@
                             </Style>
                         </Border.Style>
                         <StackPanel VerticalAlignment="Center">
-                            <Button Content="Home" Click="HomeButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="24" Height="50">
+                            <Button Content="Home" Click="HomeButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="12" Height="50">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border x:Name="border" Background="{TemplateBinding Background}">
@@ -53,6 +53,7 @@
                                                         <Storyboard>
                                                             <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="White" Duration="0:0:0.5"/>
                                                             <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#191919" Duration="0:0:0.5"/>
+                                                            <DoubleAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="FontSize" To="16" Duration="0:0:0.5"/>
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </Trigger.EnterActions>
@@ -61,6 +62,7 @@
                                                         <Storyboard>
                                                             <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.5"/>
                                                             <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#d0d0d0" Duration="0:0:0.5"/>
+                                                            <DoubleAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="FontSize" To="12" Duration="0:0:0.5"/>
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </Trigger.ExitActions>
@@ -70,7 +72,7 @@
                                 </Button.Template>
                             </Button>
 
-                            <Button Content="About" Click="AboutButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="24" Height="50">
+                            <Button Content="About" Click="AboutButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="12" Height="50">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border x:Name="border" Background="{TemplateBinding Background}">
@@ -83,6 +85,7 @@
                                                         <Storyboard>
                                                             <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="White" Duration="0:0:0.5"/>
                                                             <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#191919" Duration="0:0:0.5"/>
+                                                            <DoubleAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="FontSize" To="16" Duration="0:0:0.5"/>
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </Trigger.EnterActions>
@@ -91,6 +94,7 @@
                                                         <Storyboard>
                                                             <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.5"/>
                                                             <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#d0d0d0" Duration="0:0:0.5"/>
+                                                            <DoubleAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="FontSize" To="12" Duration="0:0:0.5"/>
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </Trigger.ExitActions>
@@ -100,7 +104,7 @@
                                 </Button.Template>
                             </Button>
 
-                            <Button Content="Info" Click="InformationButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="24" Height="50">
+                            <Button Content="Information" Click="InformationButton_Click" Background="Transparent" Foreground="#d0d0d0" BorderBrush="Transparent" FontSize="11" Height="50">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border x:Name="border" Background="{TemplateBinding Background}">
@@ -113,6 +117,7 @@
                                                         <Storyboard>
                                                             <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="White" Duration="0:0:0.5"/>
                                                             <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#191919" Duration="0:0:0.5"/>
+                                                            <DoubleAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="FontSize" To="16" Duration="0:0:0.5"/>
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </Trigger.EnterActions>
@@ -121,6 +126,7 @@
                                                         <Storyboard>
                                                             <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.5"/>
                                                             <ColorAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#d0d0d0" Duration="0:0:0.5"/>
+                                                            <DoubleAnimation Storyboard.TargetName="textBlock" Storyboard.TargetProperty="FontSize" To="11" Duration="0:0:0.5"/>
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </Trigger.ExitActions>
@@ -196,6 +202,9 @@
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="0">
                                             <Border CornerRadius="20" Background="#252525" Padding='20'>
+                                                <Border.Effect>
+                                                    <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                                </Border.Effect>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="200" />
@@ -370,8 +379,11 @@
                                             </Border>
                                         </Grid>
                                         <Grid Grid.Row="1">
-                                            <Border CornerRadius="20" Background="#252525" Padding='20' Margin='0,10,0,0'>
-                                                <ScrollViewer VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                                            <Border CornerRadius="20" Background="#252525" Margin='0,10,0,0'>
+                                                <Border.Effect>
+                                                    <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                                </Border.Effect>
+                                                <ScrollViewer VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" Padding="20">
                                                     <TextBlock x:Name="ResultsTextBlocks" Foreground="White" FontSize="12"/>
                                                 </ScrollViewer>
                                             </Border>
@@ -379,6 +391,9 @@
                                     </Grid>
                                     <Grid Grid.Column="1" Margin='10,0,0,0'>
                                         <Border CornerRadius="20" Background="#252525" Padding='20'>
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                            </Border.Effect>
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="10*" />
@@ -403,8 +418,32 @@
                                     </Grid>
                                 </Grid>
                             </Border>
-                            <Border x:Name="about" Background="#252525" CornerRadius="20" Height="0">
-                                <TextBlock Text="About"></TextBlock>
+                            <Border x:Name="about" Height="0">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                </Border.Effect>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20*" />
+                                        <RowDefinition Height="80*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Border Padding="20,0,0,0" Margin="0,0,0,0" Background="#252525" CornerRadius="20">
+                                            <TextBlock Text="About Thumbylicious" Foreground="White" FontSize="32" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Border Padding="20" Margin="0,10,0,0" Background="#252525" CornerRadius="20">
+                                            <RichTextBox IsReadOnly="True" Background="#252525" Foreground="White" FontSize="24" BorderThickness="0">
+                                                <FlowDocument>
+                                                    <Paragraph TextAlignment="Justify">
+                                                        Thumbylicious dirancang untuk mengidentifikasi individu berdasarkan sidik jari menggunakan teknologi biometrik. Dengan memanfaatkan algoritma pattern matching seperti Boyer-Moore dan Knuth-Morris-Pratt, serta metode perhitungan kemiripan Levenshtein Distance, aplikasi ini dapat melakukan pencocokan sidik jari dengan cepat dan akurat.
+                                                    </Paragraph>
+                                                </FlowDocument>
+                                            </RichTextBox>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
                             </Border>
                             <Border x:Name="information" Height="0">
                                 <Grid>
@@ -420,12 +459,27 @@
                                             </Grid.ColumnDefinitions>
                                             <Grid Grid.Column="0">
                                                 <Border Background="#252525" Padding='20' CornerRadius="20">
-                                            
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                                    </Border.Effect>
+                                                    <StackPanel>
+                                                        <TextBlock Text="1" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        <RichTextBox IsReadOnly="True" Background="#252525" Foreground="White" FontSize="20" BorderThickness="0">
+                                                            <FlowDocument>
+                                                                <Paragraph TextAlignment="Justify">
+                                                                    Upload gambar sidik jari dengan ekstensi .BMP
+                                                                </Paragraph>
+                                                            </FlowDocument>
+                                                        </RichTextBox>
+                                                    </StackPanel>
                                                 </Border>
                                             </Grid>
                                             <Grid Grid.Column="1">
-                                                <Border Background="#252525" Padding='20' Margin='10,0,0,0' CornerRadius="20">
-                                            
+                                                <Border Background="#252525" Padding='40' Margin='10,0,0,0' CornerRadius="20">
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                                    </Border.Effect>
+                                                    <TextBlock Text="How to Use" Foreground="White" FontSize="48" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                 </Border>
                                             </Grid>
                                         </Grid>
@@ -439,17 +493,53 @@
                                             </Grid.ColumnDefinitions>
                                             <Grid Grid.Column="0">
                                                 <Border Background="#252525" Padding='20' CornerRadius="20">
-
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                                    </Border.Effect>
+                                                    <StackPanel>
+                                                        <TextBlock Text="2" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        <RichTextBox IsReadOnly="True" Background="#252525" Foreground="White" FontSize="20" BorderThickness="0">
+                                                            <FlowDocument>
+                                                                <Paragraph TextAlignment="Justify">
+                                                                    Pilih algoritma BM atau KMP untuk mencocokkan sidik jari
+                                                                </Paragraph>
+                                                            </FlowDocument>
+                                                        </RichTextBox>
+                                                    </StackPanel>
                                                 </Border>
                                             </Grid>
                                             <Grid Grid.Column="1">
                                                 <Border Background="#252525" Padding='20' Margin='10,0,0,0' CornerRadius="20">
-                                            
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                                    </Border.Effect>
+                                                    <StackPanel>
+                                                        <TextBlock Text="3" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        <RichTextBox IsReadOnly="True" Background="#252525" Foreground="White" FontSize="20" BorderThickness="0">
+                                                            <FlowDocument>
+                                                                <Paragraph TextAlignment="Justify">
+                                                                    Klik tombol "Submit" untuk memulai pencocokan sidik jari
+                                                                </Paragraph>
+                                                            </FlowDocument>
+                                                        </RichTextBox>
+                                                    </StackPanel>
                                                 </Border>
                                             </Grid>
                                             <Grid Grid.Column="2">
                                                 <Border Background="#252525" Padding='20' Margin='10,0,0,0' CornerRadius="20">
-                                            
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="Black" Direction="270" ShadowDepth="1" BlurRadius="2" Opacity="1"/>
+                                                    </Border.Effect>
+                                                    <StackPanel>
+                                                        <TextBlock Text="4" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                        <RichTextBox IsReadOnly="True" Background="#252525" Foreground="White" FontSize="20" BorderThickness="0">
+                                                            <FlowDocument>
+                                                                <Paragraph TextAlignment="Justify">
+                                                                    Biodata dengan similaritas tertinggi akan ditampilkan di sebelah kanan layar. Sebanyak 4 biodata lainnya dengan similaritas terurut akan ditampilkan di bagian bawah layar
+                                                                </Paragraph>
+                                                            </FlowDocument>
+                                                        </RichTextBox>
+                                                    </StackPanel>
                                                 </Border>
                                             </Grid>
                                         </Grid>

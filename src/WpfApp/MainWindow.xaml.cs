@@ -164,6 +164,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 ResultsTextBlocks.Text = "";
 
                 ResultImage.Source = null;
+
+                Algorithm = "";
             }
         }
     }
@@ -181,6 +183,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         ResultsTextBlocks.Text = "";
 
         ResultImage.Source = null;
+
+        Algorithm = "";
     }
 
     private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -221,7 +225,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             stopwatch.Start();
         
             PatternMatcher matcher = new PatternMatcher();
-            List<Tuple<DataTable, double>> results = matcher.Match(totalPixels, filePath, algorithm);
+            List<Tuple<DataTable, double>> results = matcher.Match(totalPixels, filePath,  algorithm);
 
             DatabaseManager dbManager = new DatabaseManager();
             string finalImage = dbManager.GetOutputImage(results);
@@ -276,7 +280,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
 
             ResultsTextBlock.Text += $"Similarity: {results[0].Item2} %\n";
-            // Display execution time
+           
             ResultsTextBlock.Text += $"Execution Time: {ts.TotalMilliseconds} ms\n";
 
             for (int i = 1; i < Math.Min(5, results.Count); i++) 
@@ -299,7 +303,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-        MessageBox.Show($"An error occurred: {ex.Message}");
+            MessageBox.Show($"An error occurred: {ex.Message}");
         }
     }
 }
